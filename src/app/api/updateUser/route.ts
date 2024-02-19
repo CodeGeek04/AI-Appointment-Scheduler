@@ -1,4 +1,6 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { db } from "~/server/db";
