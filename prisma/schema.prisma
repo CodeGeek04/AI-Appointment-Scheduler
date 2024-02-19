@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    mobile    String   @id @unique
+    name      String?  @default("")
+    address   String?  @default("")
+    latitude  Float?   @default(0)
+    longitude Float?   @default(0)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Clinic {
+    id        Int      @id @default(autoincrement())
+    mobile    String   @default("")
+    name      String   @default("")
+    address   String   @default("")
+    latitude  Float    @default(0)
+    longitude Float    @default(0)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Messages {
+    id        String   @id @default(uuid())
+    mobile    String   @default("")
+    message   String   @default("")
+    createdAt DateTime @default(now())
+}
+
+model Appointments {
+    id        String   @id @default(uuid())
+    mobile    String   @default("")
+    clinic    String   @default("")
+    date      DateTime @default(now())
+    time      String   @default("")
+    status    String   @default("pending")
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
