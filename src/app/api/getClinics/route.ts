@@ -9,7 +9,7 @@ import { calculateDistance } from "~/utils/distance";
 const RegisterRequestBody = z.object({
   latitude: z.number().default(-1),
   longitude: z.number().default(-1),
-  nearest: z.number().default(5),
+  nearest: z.number().default(1),
 });
 export async function POST(request: NextRequest) {
   const req = await request.json();

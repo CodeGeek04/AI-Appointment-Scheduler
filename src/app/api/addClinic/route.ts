@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   const req = await request.json();
   const body = RegisterRequestBody.parse(req);
   try {
-    if (body.address.length < 5) {
+    
       const response = await getCoordinates(body.address);
       if (!response) {
         return NextResponse.json({
@@ -35,20 +35,14 @@ export async function POST(request: NextRequest) {
         },
       });
       return NextResponse.json({ message: user, status: 200 });
-    } else {
-      const user = await db.clinic.create({
-        data: {
-          mobile: body.mobile,
-          name: body.name,
-          address: body.address,
-        },
-      });
-      return NextResponse.json({ message: user, status: 200 });
-    }
+    
+      
+     
+    
   } catch (e: any) {
     if (e.code == "P2002") {
       return NextResponse.json({
-        message: "USER ALREADY EXISTS",
+        message: "CLINIC ALREADY EXISTS",
         status: 400,
       });
     }

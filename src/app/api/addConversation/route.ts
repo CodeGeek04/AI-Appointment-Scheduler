@@ -8,7 +8,8 @@ import { db } from "~/server/db";
 
 const RegisterRequestBody = z.object({
     mobile: z.string().min(5).max(15),
-    message: z.string().default(""),
+    user: z.string().default(""),
+    bot: z.string().default(""),
 
 });
 export async function POST(request: NextRequest) {
@@ -16,10 +17,11 @@ export async function POST(request: NextRequest) {
     const body = RegisterRequestBody.parse(req);
     try {
 
-        const user = await db.messages.create({
+        const user = await db.conversation.create({
             data: {
                 mobile: body.mobile,
-                message: body.message,
+                user: body.user,
+                bot: body.bot,
             },
         });
         return NextResponse.json({ message: user, status: 200 });
@@ -28,7 +30,7 @@ export async function POST(request: NextRequest) {
     catch (e: any) {
         if (e.code == "P2002") {
             return NextResponse.json({
-                message: "ERROR ADDING MESSAGE",
+                message: "ERROR ADDING CONVERSATION",
                 status: 400,
             });
         }

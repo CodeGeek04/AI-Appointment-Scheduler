@@ -31,10 +31,11 @@ model Clinic {
     updatedAt DateTime @updatedAt
 }
 
-model Messages {
+model Conversation {
     id        String   @id @default(uuid())
     mobile    String   @default("")
-    message   String   @default("")
+    user   String   @default("")
+    bot   String   @default("")
     createdAt DateTime @default(now())
 }
 
@@ -42,7 +43,7 @@ model Appointments {
     id        String   @id @default(uuid())
     mobile    String   @default("")
     clinic    String   @default("")
-    date      DateTime @default(now())
+    date      DateTime @default("")
     time      String   @default("")
     status    String   @default("pending")
     createdAt DateTime @default(now())

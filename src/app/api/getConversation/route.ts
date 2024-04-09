@@ -7,26 +7,22 @@ import { db } from "~/server/db";
 
 const RegisterRequestBody = z.object({
   mobile: z.string().min(5).max(15),
-  name: z.string().default(""),
 });
 export async function POST(request: NextRequest) {
   const req = await request.json();
   const body = RegisterRequestBody.parse(req);
   try {
-    const user = await db.user.create({
-      data: {
+    const user = await db.conversation.findMany({
+      where: {
         mobile: body.mobile,
-        name: body.name,
       },
     });
-    return NextResponse.json({ message: user, status: 200 });
-  } catch (e: any) {
-    if (e.code == "P2002") {
-      return NextResponse.json({
-        message: "USER ALREADY EXISTS",
-        status: 400,
-      });
+    if (user) {
+      return NextResponse.json({ message: user, status: 200 });
+    } else {
+      return NextResponse.json({ message: "MESSAGES NOT FOUND", status: 404 });
     }
+  } catch (e: any) {
     return NextResponse.json({ message: e, status: 500 });
   }
 }

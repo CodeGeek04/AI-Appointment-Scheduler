@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     if (user) {
       return NextResponse.json({ message: user, status: 200 });
     } else {
-      return NextResponse.json({ message: "USER NOT FOUND", status: 404 });
+      return NextResponse.json({ message: "USER NOT FOUND", status: 200 });
     }
   } catch (e: any) {
     return NextResponse.json({ message: e, status: 500 });
